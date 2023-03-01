@@ -1,10 +1,18 @@
 {
-    "ebay": {
+    "Facebook": {
         "email": "hello@brownsurfing.com",
-        "password": "wG2jI$$9lYR%5%UJ"
+        "password": "vu)Dp0*1$V6*RAR"
     },
-    "twitter": {
+    "Twitter": {
         "email": "hello@brownsurfing.com",
-        "password": "pz)MiN1VQW*M3$99"
+        "password": "7**cFpL6rbp2q"
+    },
+    "Ebay": {
+        "email": "hello@brownsurfing.com",
+        "password": ")N2s(v%84+3clpBQU"
+    },
+    "Amazon": {
+        "email": "hello@brownsurfing.com",
+        "password": "%Q1&UZst(B39Ac"
     }
 }

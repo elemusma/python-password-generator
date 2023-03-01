@@ -58,11 +58,8 @@ def save():
         }
     }
 
-    # print(len(website))
-
     if len(website) == 0 or len(password) == 0:
         messagebox.showwarning(title=website, message='You can\'t leave any empty fields')
-    # messagebox.showinfo(title='Title', message='message')
     else:
         try:
             with open('data.json', mode='r') as file:
@@ -72,7 +69,6 @@ def save():
         except FileNotFoundError:
             with open('data.json', 'w') as file:
                 json.dump(new_data, file, indent=4)
-            # print(f'Error message FileNotfound {error_message}')
         else:
             #updating old data with new data
             data.update(new_data)
@@ -84,6 +80,30 @@ def save():
         finally:
             input_website.delete(0, END)
             input_pass.delete(0, END)
+
+# ---------------------------- FIND PASSWORD ------------------------------- #
+
+def find_password():
+
+    website = input_website.get()
+
+    try:
+        if len(website) == 0:
+            messagebox.showwarning(title=website, message='Can\'t leave website field empty.')
+        else:
+            with open('data.json', mode='r') as file:
+                #Reading old data
+                data = json.load(file)
+                # print(data)
+                # print(data[website])
+                # print(website)
+                # print(data[website]['email'])
+                # print(data[website]['password'])
+                messagebox.showinfo(title=website, message=f'Email: {data[website]["email"]}\nPassword: {data[website]["password"]}')
+    except FileNotFoundError:
+        messagebox.showwarning(title='No file exists', message='No data file found.')
+    except KeyError:
+        messagebox.showwarning(title='No data found', message='No details for the website exists.')
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -106,8 +126,8 @@ label_pass = Label(text='Password:', bg='white', fg='black')
 label_pass.grid(column=0, row=3)
 
 #Input
-input_website = Entry(width=39, bg='white', fg='black', highlightthickness=0)
-input_website.grid(column=1, row=1, columnspan=2)
+input_website = Entry(width=21, bg='white', fg='black', highlightthickness=0)
+input_website.grid(column=1, row=1)
 input_website.focus()
 
 input_user = Entry(width=39, bg='white', fg='black', highlightthickness=0)
@@ -121,7 +141,10 @@ input_pass.grid(column=1, row=3)
 button_pass = Button(text='Generate Password', bg='white', highlightthickness=0, command=generate_password)
 button_pass.grid(column=2, row=3)
 
-button_add = Button(text='Add', bg='white', highlightthickness=0, width=36, command=save)
+button_search = Button(text='Search', bg='white', highlightthickness=0, width=13, command=search)
+button_search.grid(column=2, row=1)
+
+button_add = Button(text='Add', bg='white', highlightthickness=0, width=36, command=find_password)
 button_add.grid(column=1, row=4, columnspan=2)
 
 window.mainloop()
