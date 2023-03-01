@@ -64,20 +64,24 @@ def save():
         messagebox.showwarning(title=website, message='You can\'t leave any empty fields')
     # messagebox.showinfo(title='Title', message='message')
     else:
-        # is_ok = messagebox.askokcancel(title=website, message=f'These are the details entered: \nEmail: {user}\nPassword: {password} \nIs it ok to save?')
+        try:
+            with open('data.json', mode='r') as file:
+                #Reading old data
+                data = json.load(file)
 
-        # if is_ok:
-        # with open('data.txt', mode='a') as file:
-        with open('data.json', mode='r') as file:
-            
-            #Reading old data
-            data = json.load(file)
+        except FileNotFoundError:
+            with open('data.json', 'w') as file:
+                json.dump(new_data, file, indent=4)
+            # print(f'Error message FileNotfound {error_message}')
+        else:
             #updating old data with new data
             data.update(new_data)
-        with open('data.json', mode='w') as file:
-            #saving updated date
-            json.dump(data, file, indent=4)
-            # print(data)
+
+            with open('data.json', mode='w') as file:
+                #saving updated date
+                json.dump(data, file, indent=4)
+
+        finally:
             input_website.delete(0, END)
             input_pass.delete(0, END)
 
